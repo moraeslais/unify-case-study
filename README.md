@@ -1,8 +1,6 @@
 # unify-case-study
 A case study on redesigning the sign-up experience for UNI FY, a Brazilian payroll-loan (consignado) super app. It covers the problem behind onboarding drop-off, the design process, the decision to break registration into a guided step-by-step flow, the QA and accessibility review, and the shipped result.
 
-Live case study: https://claude.ai/artifact/CSh4DFGAxH9VQPik4QvuBS (update this link once GitHub Pages is live for this repo)
-
 Available in Portuguese and English (toggle on the page itself).
 
 What's in this case study
