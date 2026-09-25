@@ -1,0 +1,685 @@
+<title>UNI FY Case Study</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --ink: #070C52;
+    --ink-soft: #1c2170;
+    --accent: #D97757;
+    --accent-dark: #B85736;
+    --positive: #00AF78;
+    --positive-bg: #E3F6EE;
+    --paper: #FBFAF7;
+    --surface: #FFFFFF;
+    --line: #E5E7EB;
+    --line-soft: #F0EEE9;
+    --muted: #5B6172;
+    --muted-2: #9CA3AF;
+    --shadow: 0 1px 2px rgba(7,12,82,0.04);
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #EDEFFB;
+      --ink-soft: #C7CBEE;
+      --accent: #E28A67;
+      --accent-dark: #F2A483;
+      --positive: #3FCE9B;
+      --positive-bg: #113328;
+      --paper: #0B0E2E;
+      --surface: #12163F;
+      --line: #262B5C;
+      --line-soft: #1B1F4C;
+      --muted: #ABAFCB;
+      --muted-2: #7C81A8;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #EDEFFB;
+    --ink-soft: #C7CBEE;
+    --accent: #E28A67;
+    --accent-dark: #F2A483;
+    --positive: #3FCE9B;
+    --positive-bg: #113328;
+    --paper: #0B0E2E;
+    --surface: #12163F;
+    --line: #262B5C;
+    --line-soft: #1B1F4C;
+    --muted: #ABAFCB;
+    --muted-2: #7C81A8;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 0 20px;
+    line-height: 1.55;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    font-weight: 600;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  a { color: var(--accent-dark); }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .wide { max-width: 900px; margin: 0 auto; }
+
+  /* ---- top bar ---- */
+  .topbar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+  .wordmark {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .wordmark small {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--muted-2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .langtoggle {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+    background: var(--surface);
+  }
+  .langtoggle button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    font: inherit;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+  .langtoggle button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .langtoggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---- hero ---- */
+  .hero { padding: 56px 0 40px; }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin: 0 0 14px;
+  }
+  h1.title { font-size: clamp(30px, 5vw, 44px); line-height: 1.12; margin: 0 0 18px; }
+  .subtitle {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 0 0 28px;
+    font-weight: 400;
+  }
+  .metarow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  .metaitem .k {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    margin: 0 0 4px;
+  }
+  .metaitem .v {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- sections ---- */
+  section.block { padding: 44px 0; border-top: 1px solid var(--line-soft); }
+  section.block:first-of-type { border-top: none; }
+  .sectionlabel {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sectionlabel .num {
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-2);
+  }
+  h2.h { font-size: clamp(22px, 3.4vw, 28px); margin: 0 0 16px; }
+  p { margin: 0 0 16px; max-width: 68ch; }
+  p:last-child { margin-bottom: 0; }
+  .lead { font-size: 17px; color: var(--ink-soft); }
+
+  /* ---- decision (highlighted) section ---- */
+  .decision {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px clamp(20px, 4vw, 44px);
+    box-shadow: var(--shadow);
+  }
+  .decision .sectionlabel { color: var(--accent-dark); }
+
+  /* ---- stepper ---- */
+  .stepper {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    margin: 28px 0 8px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 108px;
+    flex: 0 0 auto;
+    position: relative;
+  }
+  .step .connector {
+    position: absolute;
+    top: 17px;
+    left: -54px;
+    width: 108px;
+    height: 2px;
+    background: var(--line);
+    z-index: 0;
+  }
+  .step:first-child .connector { display: none; }
+  .step .node {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .step.gate .node {
+    border-color: var(--accent);
+    color: var(--accent-dark);
+    border-radius: 8px;
+    transform: rotate(45deg);
+  }
+  .step.gate .node span { transform: rotate(-45deg); display: block; }
+  .step .label {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .step .sub {
+    font-size: 11px;
+    color: var(--muted-2);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .stepper-legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 18px;
+  }
+  .stepper-legend .item { display: flex; align-items: center; gap: 7px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 999px; border: 2px solid var(--ink); flex: none; }
+  .legend-dot.gate { border-color: var(--accent); border-radius: 3px; transform: rotate(45deg); }
+
+  /* ---- journey map ---- */
+  .journeymap { margin: 26px 0 6px; }
+  .jm-row1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .jm-box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+  }
+  .jm-box.home { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .jm-arrow { color: var(--muted-2); font-size: 16px; flex: none; }
+  .jm-row2 {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px dashed var(--line);
+  }
+  .jm-row2 .jm-box { white-space: normal; }
+
+  /* ---- QA stat row ---- */
+  .statrow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 26px 0 6px;
+  }
+  .stat {
+    background: var(--surface);
+    padding: 20px 18px;
+  }
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .stat .lbl {
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+
+  /* ---- pullquote ---- */
+  .pullquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin: 24px 0;
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  /* ---- result checklist ---- */
+  .checklist { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .checklist li { display: flex; gap: 12px; align-items: flex-start; }
+  .checkmark {
+    flex: none;
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    background: var(--positive-bg);
+    color: var(--positive);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    margin-top: 2px;
+  }
+  .checklist .txt { font-size: 15px; color: var(--ink-soft); }
+  .checklist .txt b { color: var(--ink); }
+
+  /* ---- footer ---- */
+  footer {
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--line);
+    margin-top: 12px;
+  }
+  .footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  footer .name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; }
+  footer .role { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  footer .links { display: flex; gap: 18px; flex-wrap: wrap; }
+  footer .links a { font-size: 13px; font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  footer .links a:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+  [hidden] { display: none !important; }
+
+  @media (max-width: 620px) {
+    .decision { padding: 28px 18px; border-radius: 14px; }
+    .jm-row1 { flex-direction: column; align-items: stretch; }
+    .jm-arrow { transform: rotate(90deg); align-self: center; }
+    .footer-grid { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<div class="topbar">
+  <div class="topbar-inner wide">
+    <div class="wordmark">UNI FY <small>Case Study</small></div>
+    <div class="langtoggle" role="group" aria-label="Language">
+      <button type="button" id="btn-pt" aria-pressed="true">PT</button>
+      <button type="button" id="btn-en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= PORTUGUÊS ======================= -->
+<div id="content-pt">
+  <div class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Estudo de caso &middot; Product Design</p>
+      <h1 class="title">Redesenhando o cadastro de um superapp de crédito consignado</h1>
+      <p class="subtitle">Como decompor um fluxo de entrada cheio de barreiras de validação &mdash; CPF, token, margem consignável &mdash; em etapas que o cliente entende, sem parar de avançar.</p>
+      <div class="metarow">
+        <div class="metaitem"><p class="k">Produto</p><p class="v">UNI FY</p></div>
+        <div class="metaitem"><p class="k">Meu papel</p><p class="v">UX/UI Designer</p></div>
+        <div class="metaitem"><p class="k">Time</p><p class="v">Fábio (PM), Tiago, Lucas, João, Rodrigo</p></div>
+        <div class="metaitem"><p class="k">Entrega</p><p class="v">V1 &middot; setembro de 2026</p></div>
+      </div>
+    </header>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">01</span> Contexto</p>
+      <h2 class="h">Um banco dentro de um único app</h2>
+      <p class="lead">A UNI FY é um superapp de crédito consignado: empréstimo consignado, envio de Pix, fatura, contratos e atendimento reunidos em um único produto financeiro.</p>
+      <p>Entrei no time em abril de 2026 como UX/UI Designer, dividindo o trabalho entre o desenho de telas em Figma, a construção de protótipos navegáveis e o QA/auditoria de UX direto no ambiente de homologação. A V1 do app foi estruturada em oito jornadas &mdash; Onboarding, Cadastro e ativação, Autenticação, Home, Movimentações bancárias, Movimentações de crédito, Fatura e contratos, e Perfil e comunicação &mdash; desenhadas e validadas uma a uma junto ao PM, Fábio, e ao time de desenvolvimento.</p>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">02</span> O problema</p>
+      <h2 class="h">Cadastro de crédito não é um formulário, é uma sequência de portões</h2>
+      <p>Em crédito consignado, quase todo passo do cadastro é, na prática, uma verificação que pode falhar: o CPF já tem conta? O código enviado por SMS ou e-mail está correto? Existe margem consignável disponível para esse cliente hoje? Antes de eu entrar no time, as primeiras tentativas de desenhar esse fluxo tratavam essas checagens como parte de um mesmo formulário longo &mdash; e mais de uma versão desse desenho acabou sendo descartada ao longo do processo.</p>
+      <p>O risco de tratar cadastro de crédito como um formulário comum é duplo. Primeiro, o cliente podia preencher todos os dados pessoais só para descobrir, na última etapa, que não havia margem disponível para ele &mdash; todo aquele esforço, sem um caminho claro do que fazer a seguir. Segundo, qualquer falha no meio do caminho (CPF duplicado, código incorreto) não tinha uma tela própria: só um estado de erro genérico, que não inspira confiança num produto que lida com o dinheiro do cliente.</p>
+    </section>
+
+    <section class="block">
+      <div class="decision">
+        <p class="sectionlabel"><span class="num">03</span> A decisão</p>
+        <h2 class="h">Cadastro em etapas: uma decisão por tela</h2>
+        <p class="lead">Propus &mdash; e o time adotou &mdash; quebrar o cadastro em nove etapas discretas, cada uma resolvendo um único pedaço de informação ou uma única verificação.</p>
+        <p>O princípio por trás disso: toda barreira de validação ganha sua própria tela de resultado. Um CPF que já tem conta não vira um erro genérico &mdash; vira a tela "Encontramos uma conta com esse CPF". Um código incorreto vira "Código incorreto", com opção de tentar de novo. E a checagem de margem consignável, o portão mais decisivo do fluxo, se abre em dois caminhos igualmente bem desenhados: aprovação, com o valor disponível, ou "Não encontramos sua margem", explicando o que esperar a seguir &mdash; em vez de deixar o cliente preso num formulário que simplesmente não avança.</p>
+
+        <div class="stepper" role="list" aria-label="Etapas do cadastro">
+          <div class="step" role="listitem"><div class="node">1</div><div class="label">Termos de uso</div></div>
+          <div class="step gate" role="listitem"><div class="connector"></div><div class="node"><span>2</span></div><div class="label">CPF</div><div class="sub">verifica duplicidade</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">3</div><div class="label">Dados pessoais</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">4</div><div class="label">Senha</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">5</div><div class="label">Canal do código</div><div class="sub">SMS ou e-mail</div></div>
+          <div class="step gate" role="listitem"><div class="connector"></div><div class="node"><span>6</span></div><div class="label">Confirmar código</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">7</div><div class="label">Revisão e envio</div></div>
+          <div class="step gate" role="listitem"><div class="connector"></div><div class="node"><span>8</span></div><div class="label">Margem consignável</div><div class="sub">o portão decisivo</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">9</div><div class="label">Notificações</div></div>
+        </div>
+        <div class="stepper-legend">
+          <div class="item"><span class="legend-dot"></span> etapa de dado</div>
+          <div class="item"><span class="legend-dot gate"></span> portão de verificação, com telas de sucesso e de falha</div>
+        </div>
+
+        <p style="margin-top:24px">Também tratei telas repetidas entre jornadas &mdash; como a entrada de CPF, usada tanto no cadastro quanto no login &mdash; como um componente compartilhado, um fluxo do tipo wizard, em vez de duplicar a tela em dois lugares com pequenas divergências entre si.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">04</span> Processo</p>
+      <h2 class="h">Desenhando por jornada, não por tela</h2>
+      <p>Organizei o trabalho por jornada do cliente, não por tela isolada: uma jornada pode envolver várias telas e decisões, o que deixa mais claro para a área de negócio e para o time de dev onde cada parte do fluxo começa e termina. Usei um banco digital de referência como benchmark de padrões de mercado para cadastro e autenticação em produtos financeiros.</p>
+
+      <div class="journeymap" aria-label="Mapa de jornadas da V1">
+        <div class="jm-row1">
+          <div class="jm-box">Onboarding</div>
+          <div class="jm-arrow">&rarr;</div>
+          <div class="jm-box">Cadastro e ativação</div>
+          <div class="jm-arrow">&rarr;</div>
+          <div class="jm-box">Autenticação</div>
+          <div class="jm-arrow">&rarr;</div>
+          <div class="jm-box home">Home</div>
+        </div>
+        <div class="jm-row2">
+          <div class="jm-box">Movimentações bancárias</div>
+          <div class="jm-box">Movimentações de crédito</div>
+          <div class="jm-box">Fatura e contratos</div>
+          <div class="jm-box">Perfil e comunicação &rarr; Conteúdo e suporte</div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px">Cada peça de design ficou rastreável até a descrição original do backlog do Fábio &mdash; sem parafrasear, sem reescrever em formato genérico de user story &mdash; o que tornou a revisão entre o combinado e o desenhado muito mais rápida. Perto da apresentação para todos os departamentos, transformei o wireframe estático num protótipo clicável, separando cada tela em um frame independente para que qualquer pessoa pudesse testar o caminho principal de cada jornada sem precisar de contexto técnico.</p>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">05</span> QA</p>
+      <h2 class="h">Auditando a própria interface que ajudei a desenhar</h2>
+      <p>Em paralelo ao desenho, conduzi rodadas de QA e auditoria de UX/UI direto no ambiente de homologação, validando telas como extrato, fatura e antecipação de recebíveis contra o comportamento esperado &mdash; e contra o próprio desenho original.</p>
+
+      <div class="statrow">
+        <div class="stat"><div class="num">9</div><div class="lbl">itens de QA reportados (bugs e comportamentos incorretos)</div></div>
+        <div class="stat"><div class="num">25</div><div class="lbl">observações de UX/UI, cada uma com evidência visual</div></div>
+        <div class="stat"><div class="num">WCAG</div><div class="lbl">contraste calculado para cada especificação de cor usada</div></div>
+      </div>
+
+      <p style="margin-top:22px">O relatório foi atualizado a cada rodada, à medida que o time de desenvolvimento implementava as correções &mdash; um ciclo contínuo, não uma checagem única no fim do processo.</p>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">06</span> Resultado</p>
+      <h2 class="h">O que saiu do papel</h2>
+      <ul class="checklist">
+        <li><span class="checkmark">&check;</span><span class="txt"><b>V1 entregue em setembro de 2026</b>, com o cadastro em etapas como a versão final do produto, substituindo as propostas anteriores descartadas ao longo do processo.</span></li>
+        <li><span class="checkmark">&check;</span><span class="txt"><b>Protótipo navegável</b> usado para alinhar as oito jornadas com todos os departamentos da empresa, sem depender de contexto técnico para ser entendido.</span></li>
+        <li><span class="checkmark">&check;</span><span class="txt"><b>QA incorporado ao processo</b>, não a uma checagem pontual: 9 itens de QA e 25 observações de UX/UI documentados e revisados em rodadas sucessivas com o time de desenvolvimento.</span></li>
+        <li><span class="checkmark">&check;</span><span class="txt">Cada barreira de verificação do cadastro &mdash; CPF, código, margem &mdash; passou a ter uma tela de resultado própria, eliminando os estados de erro genéricos do desenho original.</span></li>
+      </ul>
+      <p class="pullquote" style="margin-top:32px">"Cadastro em etapas" deixou de ser uma ideia proposta para virar o jeito como a UNI FY resolve, hoje, o ponto mais crítico da jornada de um novo cliente.</p>
+    </section>
+  </div>
+</div>
+
+<!-- ======================= ENGLISH ======================= -->
+<div id="content-en" hidden>
+  <div class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Case Study &middot; Product Design</p>
+      <h1 class="title">Redesigning sign-up for a payroll-loan super app</h1>
+      <p class="subtitle">How to break an onboarding flow full of validation gates &mdash; CPF lookup, one-time code, available payroll margin &mdash; into steps a customer understands, without ever leaving them stuck.</p>
+      <div class="metarow">
+        <div class="metaitem"><p class="k">Product</p><p class="v">UNI FY</p></div>
+        <div class="metaitem"><p class="k">My role</p><p class="v">UX/UI Designer</p></div>
+        <div class="metaitem"><p class="k">Team</p><p class="v">Fábio (PM), Tiago, Lucas, João, Rodrigo</p></div>
+        <div class="metaitem"><p class="k">Shipped</p><p class="v">V1 &middot; September 2026</p></div>
+      </div>
+    </header>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">01</span> Context</p>
+      <h2 class="h">A bank inside a single app</h2>
+      <p class="lead">UNI FY is a payroll-deductible credit super app: consignado loans, Pix transfers, billing, contracts and support, all in one financial product.</p>
+      <p>I joined the team in April 2026 as UX/UI Designer, splitting my time between screen design in Figma, building clickable prototypes, and running UX QA straight against the staging environment. V1 was structured into eight journeys &mdash; Onboarding, Sign-up and activation, Authentication, Home, Bank transactions, Credit transactions, Billing and contracts, and Profile and communication &mdash; each designed and validated with the PM, Fábio, and the engineering team.</p>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">02</span> The problem</p>
+      <h2 class="h">Credit sign-up isn't a form, it's a sequence of gates</h2>
+      <p>In payroll-deductible credit, almost every sign-up step is really a check that can fail: does this CPF already have an account? Was the SMS or email code entered correctly? Is there any payroll margin available for this customer today? Before I joined, the earliest attempts at this flow treated all of those checks as part of one long form &mdash; and more than one version of that design was eventually scrapped.</p>
+      <p>Treating credit sign-up like an ordinary form creates two risks. First, a customer could fill in every personal detail only to learn, at the very last step, that no margin was available &mdash; all that effort, with no clear next step. Second, any failure along the way (a duplicate CPF, a wrong code) had no screen of its own, just a generic error state, which does little to build trust in a product that handles someone's money.</p>
+    </section>
+
+    <section class="block">
+      <div class="decision">
+        <p class="sectionlabel"><span class="num">03</span> The decision</p>
+        <h2 class="h">Sign-up in steps: one decision per screen</h2>
+        <p class="lead">I proposed &mdash; and the team adopted &mdash; breaking sign-up into nine discrete steps, each one resolving a single piece of information or a single check.</p>
+        <p>The principle behind it: every validation gate gets its own outcome screen. A CPF that already has an account doesn't become a generic error &mdash; it becomes "We found an account with this CPF". A wrong code becomes "Incorrect code", with a clear way to try again. And the payroll-margin check, the most decisive gate in the flow, opens into two equally well-designed paths: approval, with the available amount, or "We couldn't find your margin", explaining what to expect next &mdash; instead of leaving the customer stuck on a form that simply won't move forward.</p>
+
+        <div class="stepper" role="list" aria-label="Sign-up steps">
+          <div class="step" role="listitem"><div class="node">1</div><div class="label">Terms of use</div></div>
+          <div class="step gate" role="listitem"><div class="connector"></div><div class="node"><span>2</span></div><div class="label">CPF</div><div class="sub">duplicate check</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">3</div><div class="label">Personal data</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">4</div><div class="label">Password</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">5</div><div class="label">Code channel</div><div class="sub">SMS or e-mail</div></div>
+          <div class="step gate" role="listitem"><div class="connector"></div><div class="node"><span>6</span></div><div class="label">Confirm code</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">7</div><div class="label">Review and submit</div></div>
+          <div class="step gate" role="listitem"><div class="connector"></div><div class="node"><span>8</span></div><div class="label">Payroll margin</div><div class="sub">the decisive gate</div></div>
+          <div class="step" role="listitem"><div class="connector"></div><div class="node">9</div><div class="label">Notifications</div></div>
+        </div>
+        <div class="stepper-legend">
+          <div class="item"><span class="legend-dot"></span> data step</div>
+          <div class="item"><span class="legend-dot gate"></span> validation gate, with success and failure screens</div>
+        </div>
+
+        <p style="margin-top:24px">I also treated screens that repeat across journeys &mdash; like CPF entry, used in both sign-up and login &mdash; as a shared, wizard-style component, instead of duplicating the screen in two places with small drifts between them.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">04</span> Process</p>
+      <h2 class="h">Designing by journey, not by screen</h2>
+      <p>I organized the work around customer journeys rather than isolated screens: a journey can span several screens and decisions, which makes it much clearer for the business side and for engineering where each part of the flow begins and ends. I used an established digital bank as a benchmark for market patterns in sign-up and authentication for financial products.</p>
+
+      <div class="journeymap" aria-label="V1 journey map">
+        <div class="jm-row1">
+          <div class="jm-box">Onboarding</div>
+          <div class="jm-arrow">&rarr;</div>
+          <div class="jm-box">Sign-up &amp; activation</div>
+          <div class="jm-arrow">&rarr;</div>
+          <div class="jm-box">Authentication</div>
+          <div class="jm-arrow">&rarr;</div>
+          <div class="jm-box home">Home</div>
+        </div>
+        <div class="jm-row2">
+          <div class="jm-box">Bank transactions</div>
+          <div class="jm-box">Credit transactions</div>
+          <div class="jm-box">Billing &amp; contracts</div>
+          <div class="jm-box">Profile &amp; communication &rarr; Content &amp; support</div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px">Every piece of design stayed traceable back to Fábio's original backlog description &mdash; never paraphrased, never rewritten into a generic user-story format &mdash; which made reviewing what was agreed against what was designed much faster. Ahead of the all-departments presentation, I turned the static wireframe into a clickable prototype, separating each screen into its own frame so anyone could walk through the main path of every journey without needing technical context.</p>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">05</span> QA</p>
+      <h2 class="h">Auditing the interface I helped design</h2>
+      <p>Alongside design work, I ran rounds of QA and UX/UI auditing directly against the staging environment, validating screens like statement, billing, and receivables anticipation against expected behavior &mdash; and against the original design intent.</p>
+
+      <div class="statrow">
+        <div class="stat"><div class="num">9</div><div class="lbl">QA items reported (bugs and incorrect behavior)</div></div>
+        <div class="stat"><div class="num">25</div><div class="lbl">UX/UI observations, each with visual evidence</div></div>
+        <div class="stat"><div class="num">WCAG</div><div class="lbl">contrast calculated for every color spec in use</div></div>
+      </div>
+
+      <p style="margin-top:22px">The report was updated round after round as engineering shipped fixes &mdash; a continuous cycle, not a single check at the end of the process.</p>
+    </section>
+
+    <section class="block">
+      <p class="sectionlabel"><span class="num">06</span> Result</p>
+      <h2 class="h">What made it out of the file</h2>
+      <ul class="checklist">
+        <li><span class="checkmark">&check;</span><span class="txt"><b>V1 shipped in September 2026</b>, with sign-up in steps as the final product direction, replacing the earlier proposals scrapped along the way.</span></li>
+        <li><span class="checkmark">&check;</span><span class="txt"><b>A clickable prototype</b> used to align all eight journeys with every department in the company, understandable without technical context.</span></li>
+        <li><span class="checkmark">&check;</span><span class="txt"><b>QA built into the process</b>, not a one-off check: 9 QA items and 25 UX/UI observations documented and reviewed across successive rounds with engineering.</span></li>
+        <li><span class="checkmark">&check;</span><span class="txt">Every validation gate in sign-up &mdash; CPF, code, margin &mdash; got its own outcome screen, replacing the generic error states in the original design.</span></li>
+      </ul>
+      <p class="pullquote" style="margin-top:32px">"Sign-up in steps" stopped being a proposal and became how UNI FY handles, today, the most critical moment in a new customer's journey.</p>
+    </section>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="name">Laís Moraes de Paula</div>
+        <div class="role" id="footer-role">UX/UI Designer &middot; Arquiteta e Urbanista</div>
+      </div>
+      <div class="links">
+        <a href="mailto:laismoraesdev@gmail.com">laismoraesdev@gmail.com</a>
+        <a href="https://linkedin.com/in/laismoraesdev" target="_blank" rel="noopener">linkedin.com/in/laismoraesdev</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var ptBtn = document.getElementById('btn-pt');
+  var enBtn = document.getElementById('btn-en');
+  var ptContent = document.getElementById('content-pt');
+  var enContent = document.getElementById('content-en');
+  var footerRole = document.getElementById('footer-role');
+
+  function setLang(lang, persist) {
+    var isPt = lang !== 'en';
+    ptContent.hidden = !isPt;
+    enContent.hidden = isPt;
+    ptBtn.setAttribute('aria-pressed', String(isPt));
+    enBtn.setAttribute('aria-pressed', String(!isPt));
+    footerRole.textContent = isPt
+      ? 'UX/UI Designer · Arquiteta e Urbanista'
+      : 'UX/UI Designer · Architect';
+    document.documentElement.lang = isPt ? 'pt-BR' : 'en';
+    if (persist) {
+      try { localStorage.setItem('unify-case-study-lang', lang); } catch (e) {}
+    }
+  }
+
+  var initial = 'pt';
+  try {
+    var saved = localStorage.getItem('unify-case-study-lang');
+    if (saved === 'en' || saved === 'pt') initial = saved;
+  } catch (e) {}
+
+  setLang(initial, false);
+
+  ptBtn.addEventListener('click', function () { setLang('pt', true); });
+  enBtn.addEventListener('click', function () { setLang('en', true); });
+})();
+</script>
