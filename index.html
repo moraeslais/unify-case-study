@@ -423,7 +423,7 @@
       <div class="metarow">
         <div class="metaitem"><p class="k">Produto</p><p class="v">UNI FY</p></div>
         <div class="metaitem"><p class="k">Meu papel</p><p class="v">UX/UI Designer</p></div>
-        <div class="metaitem"><p class="k">Time</p><p class="v">Fábio (PM), Tiago, Lucas, João, Rodrigo</p></div>
+        <div class="metaitem"><p class="k">Time</p><p class="v">PM + time de desenvolvimento</p></div>
         <div class="metaitem"><p class="k">Entrega</p><p class="v">V1 &middot; setembro de 2026</p></div>
       </div>
     </header>
@@ -432,7 +432,7 @@
       <p class="sectionlabel"><span class="num">01</span> Contexto</p>
       <h2 class="h">Um banco dentro de um único app</h2>
       <p class="lead">A UNI FY é um superapp de crédito consignado: empréstimo consignado, envio de Pix, fatura, contratos e atendimento reunidos em um único produto financeiro.</p>
-      <p>Entrei no time em abril de 2026 como UX/UI Designer, dividindo o trabalho entre o desenho de telas em Figma, a construção de protótipos navegáveis e o QA/auditoria de UX direto no ambiente de homologação. A V1 do app foi estruturada em oito jornadas &mdash; Onboarding, Cadastro e ativação, Autenticação, Home, Movimentações bancárias, Movimentações de crédito, Fatura e contratos, e Perfil e comunicação &mdash; desenhadas e validadas uma a uma junto ao PM, Fábio, e ao time de desenvolvimento.</p>
+      <p>Entrei no time em abril de 2026 como UX/UI Designer, dividindo o trabalho entre o desenho de telas em Figma, a construção de protótipos navegáveis e o QA/auditoria de UX direto no ambiente de homologação. A V1 do app foi estruturada em oito jornadas &mdash; Onboarding, Cadastro e ativação, Autenticação, Home, Movimentações bancárias, Movimentações de crédito, Fatura e contratos, e Perfil e comunicação &mdash; desenhadas e validadas uma a uma junto ao PM e ao time de desenvolvimento.</p>
     </section>
 
     <section class="block">
@@ -492,7 +492,7 @@
         </div>
       </div>
 
-      <p style="margin-top:24px">Cada peça de design ficou rastreável até a descrição original do backlog do Fábio &mdash; sem parafrasear, sem reescrever em formato genérico de user story &mdash; o que tornou a revisão entre o combinado e o desenhado muito mais rápida. Perto da apresentação para todos os departamentos, transformei o wireframe estático num protótipo clicável, separando cada tela em um frame independente para que qualquer pessoa pudesse testar o caminho principal de cada jornada sem precisar de contexto técnico.</p>
+      <p style="margin-top:24px">Cada peça de design ficou rastreável até a descrição original do backlog do PM &mdash; sem parafrasear, sem reescrever em formato genérico de user story &mdash; o que tornou a revisão entre o combinado e o desenhado muito mais rápida. Perto da apresentação para todos os departamentos, transformei o wireframe estático num protótipo clicável, separando cada tela em um frame independente para que qualquer pessoa pudesse testar o caminho principal de cada jornada sem precisar de contexto técnico.</p>
     </section>
 
     <section class="block">
@@ -533,7 +533,7 @@
       <div class="metarow">
         <div class="metaitem"><p class="k">Product</p><p class="v">UNI FY</p></div>
         <div class="metaitem"><p class="k">My role</p><p class="v">UX/UI Designer</p></div>
-        <div class="metaitem"><p class="k">Team</p><p class="v">Fábio (PM), Tiago, Lucas, João, Rodrigo</p></div>
+        <div class="metaitem"><p class="k">Team</p><p class="v">PM + engineering team</p></div>
         <div class="metaitem"><p class="k">Shipped</p><p class="v">V1 &middot; September 2026</p></div>
       </div>
     </header>
@@ -542,7 +542,7 @@
       <p class="sectionlabel"><span class="num">01</span> Context</p>
       <h2 class="h">A bank inside a single app</h2>
       <p class="lead">UNI FY is a payroll-deductible credit super app: consignado loans, Pix transfers, billing, contracts and support, all in one financial product.</p>
-      <p>I joined the team in April 2026 as UX/UI Designer, splitting my time between screen design in Figma, building clickable prototypes, and running UX QA straight against the staging environment. V1 was structured into eight journeys &mdash; Onboarding, Sign-up and activation, Authentication, Home, Bank transactions, Credit transactions, Billing and contracts, and Profile and communication &mdash; each designed and validated with the PM, Fábio, and the engineering team.</p>
+      <p>I joined the team in April 2026 as UX/UI Designer, splitting my time between screen design in Figma, building clickable prototypes, and running UX QA straight against the staging environment. V1 was structured into eight journeys &mdash; Onboarding, Sign-up and activation, Authentication, Home, Bank transactions, Credit transactions, Billing and contracts, and Profile and communication &mdash; each designed and validated with the PM and the engineering team.</p>
     </section>
 
     <section class="block">
@@ -602,7 +602,7 @@
         </div>
       </div>
 
-      <p style="margin-top:24px">Every piece of design stayed traceable back to Fábio's original backlog description &mdash; never paraphrased, never rewritten into a generic user-story format &mdash; which made reviewing what was agreed against what was designed much faster. Ahead of the all-departments presentation, I turned the static wireframe into a clickable prototype, separating each screen into its own frame so anyone could walk through the main path of every journey without needing technical context.</p>
+      <p style="margin-top:24px">Every piece of design stayed traceable back to the PM's original backlog description &mdash; never paraphrased, never rewritten into a generic user-story format &mdash; which made reviewing what was agreed against what was designed much faster. Ahead of the all-departments presentation, I turned the static wireframe into a clickable prototype, separating each screen into its own frame so anyone could walk through the main path of every journey without needing technical context.</p>
     </section>
 
     <section class="block">
@@ -671,11 +671,13 @@
     }
   }
 
-  var initial = 'pt';
+  var initial = (navigator.language || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
   try {
     var saved = localStorage.getItem('unify-case-study-lang');
     if (saved === 'en' || saved === 'pt') initial = saved;
   } catch (e) {}
+  var q = new URLSearchParams(location.search).get('lang');
+  if (q === 'en' || q === 'pt') initial = q;
 
   setLang(initial, false);
 
